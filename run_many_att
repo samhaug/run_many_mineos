@@ -1,0 +1,14 @@
+#!/home/samhaug/anaconda2/bin/python
+
+from os import listdir
+from subprocess import call
+
+pert_list = listdir('./perturb_att/')
+
+for f in pert_list:
+    dir_name = f.strip('.txt')
+    call('cp -r setup_okhotsk '+dir_name,shell=True)
+    #call('cd '+dir_name,shell=True)
+    call('bash ../submit_mineos '+f+' C201601300325A_cmt',shell=True,cwd=dir_name)
+    #call('cd ..',shell=True)
+    

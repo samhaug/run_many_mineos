@@ -1,0 +1,15 @@
+#!/home/samhaug/anaconda2/bin/python
+
+from os import listdir
+from subprocess import call
+
+pert_list = listdir('./depth_perturb/')
+
+for f in pert_list:
+    dir_name = 'FJ_3.0_h'+f.split('_')[-1]
+    call('mkdir '+dir_name,shell=True)
+    call('cp -r setup_depth_perturb/* '+dir_name,shell=True)
+    call('rm '+dir_name+'/*cmt',shell=True)
+    call('cp depth_perturb/'+f+' '+dir_name,shell=True)
+    call('bash ../submit_mineos '+'vel_3.0.txt '+f,shell=True,cwd=dir_name)
+    

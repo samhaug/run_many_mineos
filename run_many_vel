@@ -1,0 +1,14 @@
+#!/home/samhaug/anaconda2/bin/python
+
+from os import listdir
+from subprocess import call
+
+pert_list = listdir('./vel_perturb/')
+
+for f in pert_list:
+    dir_name = './FJ_'+f.strip('.txt').split('_')[-1]
+    print dir_name
+    call('mkdir '+dir_name,shell=True)
+    call('cp  setup_vel_perturb/* '+dir_name,shell=True)
+    call('bash ../submit_mineos '+f+' C201601300325A_cmt',shell=True,cwd=dir_name)
+    
